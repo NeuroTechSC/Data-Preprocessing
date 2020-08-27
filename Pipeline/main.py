@@ -27,7 +27,7 @@ def main ():
     print ('Data From the Board')
     print (df.head (10))
 
-    # demo for data serialization using brainflow API, we recommend to use it instead pandas.to_csv()
+    # demo for data serialization using Pipeline API, we recommend to use it instead pandas.to_csv()
     #DataFilter.write_file (data, 'test.csv', 'w') # use 'a' for append mode
     restored_data = DataFilter.read_file ('OpenBCI-RAW-2020-08-18_08-44-41.csv')
     restored_df = pd.DataFrame (np.transpose (restored_data))
