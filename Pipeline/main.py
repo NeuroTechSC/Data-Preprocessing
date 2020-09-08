@@ -41,6 +41,7 @@ def main ():
     data = np.loadtxt("OpenBCI-RAW-2020-08-18_08-44-41.csv", delimiter=',')  # remember to remove the first three lines
     data = np.transpose(data)
 
+
     ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
                 'EXG Channel 6', 'EXG Channel 7', 'Accel Channel 0', 'Accel Channel 1', 'Accel Channel 2', 'Other',
                 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Analog Channel 0', 'Analog Channel 1',
@@ -54,10 +55,27 @@ def main ():
     print(raw)
     print(raw.info)
 
+    
     raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
      resp=1, chpi=1e-4, whitened=1e2))
     print(type(raw))
+
+    sfreq = 1000
+    f_p = 40
+
+    iirs_params = dict(order = 4, ftype = 'butter', output = 'sos')
+    iir_params = mne.filter.construct_iir_filter(iirs_params, f_p, None, sfreq, 'lowpass', return_copy = False, verbose = True)
+    filtered_data = mne.filter.filter_data(data, sfreq = sfreq,l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
+
+    filtered_raw = mne.io.RawArray(filtered_data, info)
+    print(filtered_raw)
+    print(filtered_raw.info)
+    filtered_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+     emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+     resp=1, chpi=1e-4, whitened=1e2))
+    print(type(filtered_raw))
+
 
 
 if __name__ == "__main__":
