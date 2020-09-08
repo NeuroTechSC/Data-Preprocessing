@@ -30,8 +30,7 @@ def main ():
 
     restored_data = DataFilter.read_file ('OpenBCI-RAW-2020-08-18_08-44-41.csv')
     if (restored_data.shape[0] > 23):  # If the timestamp has not already been removed then we will remove it
-        new_data = np.delete(restored_data, 23,
-                             0)  # There to delete the date since that could not be converted into float
+        new_data = np.delete(restored_data, 23,0)  # There to delete the date since that could not be converted into float
         restored_df = pd.DataFrame(np.transpose(new_data))
         DataFilter.write_file(new_data, "OpenBCI-RAW-2020-08-18_08-44-41.csv", 'w')
     else:
