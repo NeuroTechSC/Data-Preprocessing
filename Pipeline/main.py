@@ -35,6 +35,12 @@ def main ():
         DataFilter.write_file(new_data, "OpenBCI-RAW-2020-08-18_08-44-41.csv", 'w')
     else:
         restored_df = pd.DataFrame(np.transpose(restored_data))
+    
+    
+    ##############################################################
+    # Raw Data                                                   #
+    ##############################################################
+    
     print('Data From the File')
     print(restored_df.head(10))
 
@@ -59,8 +65,14 @@ def main ():
     raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
      resp=1, chpi=1e-4, whitened=1e2))
+    
     print(type(raw))
 
+
+    ##############################################################
+    # Butterworth Filter                                         #
+    ##############################################################
+    
     sfreq = 1000
     f_p = 40
 
@@ -71,12 +83,29 @@ def main ():
     filtered_raw = mne.io.RawArray(filtered_data, info)
     print(filtered_raw)
     print(filtered_raw.info)
+    
+
     filtered_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
      resp=1, chpi=1e-4, whitened=1e2))
+    
     print(type(filtered_raw))
 
+    
+    ##############################################################
+    # ICA Preprocessing                                          #
+    ##############################################################
 
+    ica = mne.preprocessing.ICA(verbose = True)
+    ica.fit(inst = filtered_raw, tstep = 2, verbose = True)
+    ica_raw = ica.apply(filtered_raw)
+
+
+    ica_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+     emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+     resp=1, chpi=1e-4, whitened=1e2))
+    
+    print(type(filtered_raw))
 
 if __name__ == "__main__":
     main ()
