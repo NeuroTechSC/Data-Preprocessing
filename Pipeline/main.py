@@ -78,14 +78,11 @@ def main ():
 
     iirs_params = dict(order = 4, ftype = 'butter', output = 'sos')
     iir_params = mne.filter.construct_iir_filter(iirs_params, f_p, None, sfreq, 'lowpass', return_copy = False, verbose = True)
-    filtered_data = mne.filter.filter_data(data, sfreq = sfreq,l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
-
-    
+    filtered_data = mne.filter.filter_data(data, sfreq = sfreq,l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)  
 
     filtered_raw = mne.io.RawArray(filtered_data, info)
     print(filtered_raw)
     print(filtered_raw.info)
-    
 
     filtered_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
@@ -97,18 +94,15 @@ def main ():
     ##############################################################
     # ICA Preprocessing                                          #
     ##############################################################
-
-    
     
     ica_info = mne.create_info(ch_names, sfreq, ch_types='eeg') 
     ica_data = mne.io.RawArray(filtered_data, ica_info)
     
     ica = mne.preprocessing.ICA(verbose = True)
-    ica.fit(inst = ica_data, picks = 'all')
-    ica_raw = ica.apply(filtered_raw)
+    ica.fit(inst = ica_data, picks = [0,1,2,3,4,5,6,7,14,15,16,18])
+    ica.apply(ica_data)
 
-
-    ica_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+    ica_data.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=1e2, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
      resp=1, chpi=1e-4, whitened=1e2))
     
