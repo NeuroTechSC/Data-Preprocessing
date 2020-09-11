@@ -55,8 +55,8 @@ def main ():
                 'Timestamp', 'Timestamp(Formatted)']
 
     sfreq = 250
-    info = mne.create_info(ch_names, sfreq, ch_types='emg')
 
+    info = mne.create_info(ch_names, sfreq, ch_types='emg')
     raw = mne.io.RawArray(data, info)
     print(raw)
     print(raw.info)
@@ -80,6 +80,8 @@ def main ():
     iir_params = mne.filter.construct_iir_filter(iirs_params, f_p, None, sfreq, 'lowpass', return_copy = False, verbose = True)
     filtered_data = mne.filter.filter_data(data, sfreq = sfreq,l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
 
+    
+
     filtered_raw = mne.io.RawArray(filtered_data, info)
     print(filtered_raw)
     print(filtered_raw.info)
@@ -96,8 +98,13 @@ def main ():
     # ICA Preprocessing                                          #
     ##############################################################
 
+    
+    
+    ica_info = mne.create_info(ch_names, sfreq, ch_types='eeg') 
+    ica_data = mne.io.RawArray(filtered_data, ica_info)
+    
     ica = mne.preprocessing.ICA(verbose = True)
-    ica.fit(inst = filtered_raw, tstep = 2, verbose = True)
+    ica.fit(inst = ica_data, picks = 'all')
     ica_raw = ica.apply(filtered_raw)
 
 
