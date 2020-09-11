@@ -69,12 +69,12 @@ def main ():
     raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
      resp=1, chpi=1e-4, whitened=1e2))
-    
+
 
     ##############################################################
     # Butterworth Filter                                         #
     ##############################################################
-    
+
     sfreq = 1000
     f_p = 40
 
