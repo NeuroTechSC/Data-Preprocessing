@@ -99,7 +99,7 @@ def main ():
     ##############################################################
 
     #Setting up data for fitting
-    ica_info = mne.create_info(ch_names, sfreq = 250, ch_types='eeg') 
+    ica_info = mne.create_info(ch_names, sfreq, ch_types='eeg') 
     ica_data = mne.io.RawArray(filtered_raw, ica_info)
     
     #Fitting and applying ICA
@@ -117,13 +117,13 @@ def main ():
     # Normalization                                              #
     ##############################################################
 
-    filtered_raw_numpy = filtered_data[:][0]
-    normalized_raw = sk.normalize(filtered_raw_numpy, norm='l2')
+    preprocessed_raw = ica_data[:][0]
+    normalized_raw = sk.normalize(preprocessed_raw, norm='l2')
     print((normalized_raw))
     
-    normalized_raw = mne.io.RawArray(normalized_raw, info)
+    normalized_data = mne.io.RawArray(normalized_raw, info)
     
-    normalized_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+    normalized_data.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
     emg=5e-3, ref_meg=1e-12, misc=1e-3, stim=1,
     resp=1, chpi=1e-4, whitened=1e2))
 
