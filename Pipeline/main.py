@@ -4,10 +4,12 @@ import numpy as np
 import pandas as pd
 import os
 import mne
+from mne.preprocessing import (ICA, create_eog_epochs, create_ecg_epochs,
+                               corrmap)
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
 from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
-
-
+from sklearn.decomposition import FastICA
+from sklearn import preprocessing as sk
 def main ():
 
 
@@ -35,6 +37,12 @@ def main ():
         DataFilter.write_file(new_data, "OpenBCI-RAW-2020-08-18_08-44-41.csv", 'w')
     else:
         restored_df = pd.DataFrame(np.transpose(restored_data))
+    
+    
+    ##############################################################
+    # Raw Data                                                   #
+    ##############################################################
+    
     print('Data From the File')
     print(restored_df.head(10))
 
@@ -52,14 +60,21 @@ def main ():
     sfreq = 250
     info = mne.create_info(ch_names, sfreq, ch_types='emg')
 
+    data = data.astype(float)
+
     raw = mne.io.RawArray(data, info)
     print(raw)
     print(raw.info)
 
-    # raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
-    #  emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
-    #  resp=1, chpi=1e-4, whitened=1e2))
+    raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+     emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+     resp=1, chpi=1e-4, whitened=1e2))
+    
 
+    ##############################################################
+    # Butterworth Filter                                         #
+    ##############################################################
+    
     sfreq = 1000
     f_p = 40
 
@@ -71,26 +86,44 @@ def main ():
 
     filtered_raw = mne.io.RawArray(filtered_data, info)
     print(filtered_raw.info)
-    #filtered_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
-     #emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
-     #resp=1, chpi=1e-4, whitened=1e2))
+    filtered_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+     emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+     resp=1, chpi=1e-4, whitened=1e2))
     print(type(filtered_raw))
 
+    ##############################################################
+    # Normalization                                          #
+    ##############################################################
+
     filtered_raw_numpy = filtered_raw[:][0]
-    print(filtered_raw_numpy[0])
-    print(np.mean(filtered_raw_numpy, axis=0)[0]/np.std(filtered_raw_numpy, axis=0)[0])
-    normalized_raw = (filtered_raw_numpy) - (np.mean(filtered_raw_numpy, axis=0) / np.std(filtered_raw_numpy, axis=0))
+    normalized_raw = sk.normalize(filtered_raw_numpy, norm='l2')
+    print((normalized_raw))
     normalized_raw = mne.io.RawArray(normalized_raw, info)
-    #normalized_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
-     #emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
-     #resp=1, chpi=1e-4, whitened=1e2))
+    normalized_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+    emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+    resp=1, chpi=1e-4, whitened=1e2))
 
 
+    
+    ##############################################################
+    # ICA Preprocessing                                          #
+    ##############################################################
 
-# def normalize(dataset):
-#     return (filtered_raw - np.mean(filtered_raw, axis=0)) / np.std(filtered_raw, axis=0)
+    # filtered_raw_numpy = filtered_raw[:][0]
+    #     # filtered_raw_numpy=filtered_raw_numpy.astype(float)
+    #     # ica = mne.preprocessing.ICA(verbose = True)
+    #     # filtered_raw = mne.io.RawArray(filtered_raw_numpy,info)
+    #     # ica.fit(filtered_raw)
+    #ica_raw = ica.apply(filtered_raw)
+    # filtered_raw.load_data().filter(l_freq = 1, h_freq = None)
+    # ica = ICA(n_components = 23, random_state=97)
+    # ica.fit(filtered_raw)
+    # ica.plot_sources(raw)
 
-
+    # ica_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
+    #  emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
+    #  resp=1, chpi=1e-4, whitened=1e2))
+    #
 
 if __name__ == "__main__":
     main ()
