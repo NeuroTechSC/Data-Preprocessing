@@ -10,6 +10,7 @@ from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, Boa
 from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
 from sklearn.decomposition import FastICA
 from sklearn import preprocessing as sk
+from splice import splice
 def main ():
 
 
@@ -117,7 +118,7 @@ def main ():
     # Normalization                                              #
     ##############################################################
 
-    filtered_raw_numpy = filtered_raw[:][0]
+    filtered_raw_numpy = ica_data[:][0]
     normalized_raw = sk.normalize(filtered_raw_numpy, norm='l2')
     print((normalized_raw))
     
@@ -128,25 +129,6 @@ def main ():
     resp=1, chpi=1e-4, whitened=1e2))
 
 
-    ##############################################################
-    # ICA Preprocessing (dead code?)                             #
-    ##############################################################
-
-    # filtered_raw_numpy = filtered_raw[:][0]
-    #     # filtered_raw_numpy=filtered_raw_numpy.astype(float)
-    #     # ica = mne.preprocessing.ICA(verbose = True)
-    #     # filtered_raw = mne.io.RawArray(filtered_raw_numpy,info)
-    #     # ica.fit(filtered_raw)
-    #ica_raw = ica.apply(filtered_raw)
-    # filtered_raw.load_data().filter(l_freq = 1, h_freq = None)
-    # ica = ICA(n_components = 23, random_state=97)
-    # ica.fit(filtered_raw)
-    # ica.plot_sources(raw)
-
-    # ica_raw.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
-    #  emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
-    #  resp=1, chpi=1e-4, whitened=1e2))
-    #
 
 if __name__ == "__main__":
     main ()
