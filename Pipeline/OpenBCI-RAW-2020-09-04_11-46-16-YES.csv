@@ -1,0 +1,4 @@
+,%OpenBCI Raw EEG Data
+0,%Number of channels = 8
+1,%Sample Rate = 250 Hz
+2,%Board = OpenBCI_GUI$BoardCytonSerial
