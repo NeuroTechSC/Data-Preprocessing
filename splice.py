@@ -46,20 +46,27 @@ def processing(sample):
 	normalized_data = mne.io.RawArray(normalized_raw, info)
 	return normalized_data[:][0]
 
-def splice(filename, channels=8, hz=250, chunkSecs=2):
+def splice(filename, truth, channels=8, hz=250, chunkSecs=2):
 
 	chunks, curr, labels = [], [], [] # all chunks, current reading sample
 	with open(filename, 'r') as file:
 		f = csv.reader(file)
-		for i in range(5): # skip first few lines
+		for i in range(5): # skip first five lines
 			next(f)
 
 		for l in f:
 			if len(curr) == chunkSecs * hz: # if done with one sample
-				if len(chunks) < 35:
-					labels.append(1)
-				else:
+				# if len(chunks) < 35:
+				# 	labels.append(1)
+				# else:
+				# 	labels.append(0)
+
+				# decide how to label data.
+				if truth == "no" :
 					labels.append(0)
+				elif truth == "yes" :
+					labels.append(1)
+
 				chunks.append(processing(curr)) # add to list of all chunks
 				curr = [] # prepare for next sample
 
@@ -73,4 +80,25 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	pickle.dump(data, open('%s.pkl' % filename.split('.')[0], 'wb'))
 	print('Extracted %d chunks from %s' % (data.shape[0], filename))
 
-splice('OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt')
+'''
+Recursively walks through given directory until it locates ".txt" 
+file and then parses that file with splice()
+'''
+def search(data_dir, truth="") :
+	dir_list = os.scandir(data_dir) # outermost directory to search
+
+	for file in dir_list :
+
+		if file.is_file() and file.name.endswith(".txt") :
+			splice( file.path, truth=truth )
+
+		elif file.is_dir() :
+			if "no" in file.path :
+				truth = "no"
+			elif "yes" in file.path :
+				truth = "yes"
+
+			search(data_dir=file.path, truth=truth)
+
+
+search("Phoebe-20200918T044623Z-001")
