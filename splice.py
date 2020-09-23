@@ -80,25 +80,6 @@ def splice(filename, truth, channels=8, hz=250, chunkSecs=2):
 	pickle.dump(data, open('%s.pkl' % filename.split('.')[0], 'wb'))
 	print('Extracted %d chunks from %s' % (data.shape[0], filename))
 
-'''
-Recursively walks through given directory until it locates ".txt" 
-file and then parses that file with splice()
-'''
-def search(data_dir, truth="") :
-	dir_list = os.scandir(data_dir) # outermost directory to search
-
-	for file in dir_list :
-
-		if file.is_file() and file.name.endswith(".txt") :
-			splice( file.path, truth=truth )
-
-		elif file.is_dir() :
-			if "no" in file.path :
-				truth = "no"
-			elif "yes" in file.path :
-				truth = "yes"
-
-			search(data_dir=file.path, truth=truth)
 
 
-search("Phoebe-20200918T044623Z-001")
+splice("Phoebe-20200918T044623Z-001")
