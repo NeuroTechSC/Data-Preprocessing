@@ -81,7 +81,7 @@ def main ():
     # Butterworth Filter                                         #
     ##############################################################
 
-    sfreq = 1000
+    sfreq = 250
     f_p = 40
 
     #Applying butterworth filter
