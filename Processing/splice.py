@@ -70,13 +70,13 @@ def splice(filename, truth, channels=8, hz=250, chunkSecs=2):
 				elif truth == "yes" :
 					labels.append(1)
 
-				chunks.append(processing(curr)) # add to list of all chunks
+				if count != 0:
+					chunks.append(processing(curr)) # add to list of all chunks
 				
 				curr = [] # prepare for next sample
 
-			if count != 0:
 				curr.append([float(x) for x in l[1:channels]]) # add channel recording to current sample
-			count += 1
+				count += 1
 
 	data = np.asarray(chunks) # convert chunks to np array
 	with open('%s_labels.csv' % filename.split('.')[0], 'w', newline='') as file:
