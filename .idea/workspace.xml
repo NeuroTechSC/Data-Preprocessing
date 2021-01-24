@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd3344f6-04f4-4521-b16e-daf215b3404f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin_labels.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipeline/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/splice.py" beforeDir="false" afterPath="$PROJECT_DIR$/splice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Pipeline/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1769">
-              <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
+            <state relative-caret-position="495">
+              <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -26,11 +34,16 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/splice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+            <state relative-caret-position="423">
+              <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -38,22 +51,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-37-12.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-36-35.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>trans</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,7 +66,13 @@
       <list>
         <option value="$PROJECT_DIR$/OpenBCI-RAW-2020-08-28_23-19-46.txt" />
         <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-08-18_08-47-30.csv" />
+        <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYESNoSecondTwoMin copy.csv" />
+        <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYesTwoMin.txt" />
+        <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" />
+        <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-43-38(yes).txt" />
+        <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-37-27(yes).txt" />
         <option value="$PROJECT_DIR$/Pipeline/main.py" />
+        <option value="$PROJECT_DIR$/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" />
         <option value="$PROJECT_DIR$/splice.py" />
       </list>
     </option>
@@ -77,7 +86,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -94,13 +102,18 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Pipeline" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Pipeline" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Pipeline" />
@@ -201,23 +214,30 @@
       <option name="presentableId" value="Default" />
       <updated>1598487108996</updated>
     </task>
+    <task id="LOCAL-00001" summary="Removed Samuel's changes for testing.">
+      <created>1600905538087</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600905538088</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33685693" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.273432" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32891566" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.2841584" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.39036146" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.28674698" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
@@ -225,6 +245,29 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28646657" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.2841584" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.2879518" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Removed Samuel's changes for testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed Samuel's changes for testing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -246,12 +289,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/splice.py</url>
-          <line>80</line>
+          <line>77</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/splice.py</url>
-          <line>75</line>
+          <line>72</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
@@ -334,32 +377,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin_labels.csv">
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin_labels.csv" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.csv" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.txt" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-37-12.txt" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-36-35.txt" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyTwoMinNO.txt" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyTwoMinNO_labels.csv" />
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYESNoSecondTwoMin copy.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.csv">
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYesTwoMin.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24965" />
+        <state relative-caret-position="225">
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-466580" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt">
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-37-12.txt">
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesTwoMin_labels.csv" />
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-37-27(yes).txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-08-19_12-36-35.txt">
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-43-38(yes).txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" />
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Pipeline/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1769">
-          <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
+        <state relative-caret-position="495">
+          <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -368,8 +421,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/splice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+        <state relative-caret-position="423">
+          <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

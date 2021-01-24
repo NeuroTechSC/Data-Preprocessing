@@ -17,7 +17,7 @@ def main ():
     directory = os.path.dirname(os.path.abspath(__file__))
 
     # renames .txt files to .csv and then prints its contents
-    filename = 'OpenBCI-RAW-2020-08-18_08-47-30.csv'
+    filename = 'OpenBCI-RAW-2020-11-11_08-42-41YES.txt'
     restored_data = DataFilter.read_file(filename)
     print(restored_data.shape)
     if (restored_data.shape[0] > 9):  # If the timestamp has not already been removed then we will remove it
@@ -56,7 +56,7 @@ def main ():
     print(restored_df.head(10))
 
 
-    data = np.loadtxt("OpenBCI-RAW-2020-08-18_08-47-30.csv", delimiter=',')  # remember to remove the first five lines
+    data = np.loadtxt(filename, delimiter=',')  # remember to remove the first five lines
     data = np.transpose(data)
 
 
@@ -82,13 +82,13 @@ def main ():
     ##############################################################
 
     sfreq = 250
-    f_p = 40
+    f_p = 7
 
     #Applying butterworth filter
-    iirs_params = dict(order = 4, ftype = 'butter', output = 'sos')
-    iir_params = mne.filter.construct_iir_filter(iirs_params, f_p, None, sfreq, 'lowpass', return_copy = False, verbose = True)
+    iirs_params = dict(order = 8, ftype = 'butter', output = 'sos')
+    iir_params = mne.filter.construct_iir_filter(iirs_params, f_p, None, sfreq, btype='lowpass', return_copy = False, verbose = True)
 
-    filtered_raw = mne.filter.filter_data(data, sfreq = sfreq,l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)  
+    filtered_raw = mne.filter.filter_data(data, sfreq = sfreq, l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
 
     filtered_data = mne.io.RawArray(filtered_raw, info)
     print(filtered_data.info)
