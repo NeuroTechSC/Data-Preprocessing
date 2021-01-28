@@ -5,6 +5,7 @@ import pandas as pd
 import os
 from sklearn import preprocessing as sk
 import mne
+import time
 
 
 def processing(sample):
@@ -46,6 +47,11 @@ def processing(sample):
 
 
 def splice(filename, channels=8, hz=250, chunkSecs=2):
+	# prints out True every second
+	while(True):
+		time.sleep(1)
+		print(True)
+
 	count = 0
 	chunks, curr, labels = [], [], [] # all chunks, current reading sample
 	i = 0
