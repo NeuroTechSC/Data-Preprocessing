@@ -6,7 +6,10 @@ import os
 from sklearn import preprocessing as sk
 import mne
 import time
+import threading
 
+stored_data;
+return_data;
 
 def processing(sample):
 	# TODO: perform MNE processing here
@@ -43,14 +46,14 @@ def processing(sample):
 	ica.apply(ica_data)
 	filtered_raw_numpy = ica_data[:][0]
 
-	return filtered_raw_numpy
+	return_data = filtered_raw_numpy
 
 
 def splice(filename, channels=8, hz=250, chunkSecs=2):
 	# prints out True every second
-	while(True):
-		time.sleep(1)
-		print(True)
+	# while(True):
+	# 	time.sleep(1)
+	# 	print(True)
 
 	count = 0
 	chunks, curr, labels = [], [], [] # all chunks, current reading sample
@@ -84,5 +87,23 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	print('Extracted %d chunks from %s' % (data.shape[0], filename))
 	print(data.shape)
 	print(len(labels))
+
+def record(data):
+	return;
+
+# We're going recording the data and processing in parrallel
+def driver(data):
+	if (data):
+		# Record 1 sec
+		rd = threading.Thread(target=record, args=(data,))
+		
+		# Wait for recording to finish
+		rd.join()
+
+		# Process the sec of recording
+		pd = threading.Thread(target=processing, args=(data,))
+
+		# Return the data after processing
+		return return_data
 
 splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
