@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd3344f6-04f4-4521-b16e-daf215b3404f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-08-18_08-47-30.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-04_11-46-16-YES.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin_labels.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/splice.py" beforeDir="false" afterPath="$PROJECT_DIR$/splice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Pipeline/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="8" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -42,16 +30,47 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/splice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
+            <state relative-caret-position="376">
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+                <marker date="1613265252053" expanded="true" signature="2590:3266" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_stream.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-16_01-24-57.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-16_01-22-25_labels.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="14" selection-start-column="14" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -71,8 +90,9 @@
         <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" />
         <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-43-38(yes).txt" />
         <option value="$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-10-27_18-37-27(yes).txt" />
-        <option value="$PROJECT_DIR$/Pipeline/main.py" />
         <option value="$PROJECT_DIR$/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" />
+        <option value="$PROJECT_DIR$/Pipeline/main.py" />
+        <option value="$PROJECT_DIR$/test_stream.py" />
         <option value="$PROJECT_DIR$/splice.py" />
       </list>
     </option>
@@ -86,6 +106,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -102,7 +123,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,23 +241,31 @@
       <option name="project" value="LOCAL" />
       <updated>1600905538088</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fall competition pipeline">
+      <created>1611455810488</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1611455810488</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.273432" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2635659" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2841584" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.39036146" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3120482" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.28674698" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.28590426" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
@@ -267,34 +295,25 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Removed Samuel's changes for testing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed Samuel's changes for testing." />
+    <MESSAGE value="Fall competition pipeline" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fall competition pipeline" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Pipeline/main.py</url>
-          <line>55</line>
+          <line>138</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Pipeline/main.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Pipeline/main.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/splice.py</url>
-          <line>77</line>
+          <line>73</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/splice.py</url>
-          <line>72</line>
+          <line>68</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
@@ -406,25 +425,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-09-14_RileyYesNoTwoMin.txt" />
     <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-11_08-42-41YES.txt" />
-    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-16_01-22-25.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Pipeline/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="8" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pipeline/OpenBCI-RAW-2020-11-11_08-42-41YES.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_stream.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-16_01-24-57.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenBCI-RAW-2020-11-16_01-22-25_labels.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/splice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="63" column="24" lean-forward="true" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
+        <state relative-caret-position="376">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1613265252053" expanded="true" signature="2590:3266" ph="..." />
           </folding>
         </state>
       </provider>
