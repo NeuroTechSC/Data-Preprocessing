@@ -1,15 +1,15 @@
 import csv
 import pickle
 import numpy as np
-import pandas as pd
-import os
-from sklearn import preprocessing as sk
+from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
+from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
 import mne
-import time
-import threading
+import requests
+from bs4 import BeautifulSoup
+import asyncio
 
-stored_data;
-return_data;
+stored_data = 0
+return_data = 0
 
 def processing(sample):
 	# TODO: perform MNE processing here
@@ -33,8 +33,6 @@ def processing(sample):
 										  iir_params=iir_params, copy=False, verbose=True)
 
 	filtered_data = mne.io.RawArray(filtered_raw, info)
-
-
 
 	# Setting up data for fitting
 	ica_info = mne.create_info(7, sfreq, ch_types='eeg')
@@ -88,22 +86,56 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	print(data.shape)
 	print(len(labels))
 
-def record(data):
-	return;
+
+async def recordData(serial_port, board_id=0, samples=500):
+    params = BrainFlowInputParams()
+    params.serial_port = serial_port
+    board = BoardShim(board_id, params)
+    board.prepare_session()
+
+    board.start_stream(samples + 1)
+    #time.sleep(2.5)
+
+    data = board.get_board_data()
+    board.stop_stream()
+    board.release_session()
+
+    data = data[:7].T
+    return data
+
 
 # We're going recording the data and processing in parrallel
-def driver(data):
-	if (data):
-		# Record 1 sec
-		rd = threading.Thread(target=record, args=(data,))
-		
-		# Wait for recording to finish
-		rd.join()
+async def driver():
+	#record and processing synch..
+	record_task = recordData(55)
+	next_data = record_task
+	await asyncio.gather(
+		# factorial("A", 2),
+		# factorial("B", 3),
+		# factorial("C", 4),
+		processing(record_task),
+	)
 
-		# Process the sec of recording
-		pd = threading.Thread(target=processing, args=(data,))
+def web_parser():
+	word_list = ['Seattle', 'San Francisco', 'Los Angeles', 'Berkeley', 'Houston', 'Chicago',
+				'Davis', 'Oakland', 'Santa Cruz', 'San Jose', 'Austin', 'Denver',
+				 'Boston', 'Phoenix', 'Indianapolis', 'Portland', 'Las Vegas', 'Detroit']
+	word_diction = {}
 
-		# Return the data after processing
-		return return_data
+	for i in word_list:
+		page = requests.get('https://en.wiktionary.org/wiki/' + i)
+		soup = BeautifulSoup(page.text, 'html.parser')
+		IPA_list = soup.findAll(class_='IPA')
+		print(i)
+		for j in IPA_list:
+			if str(j).count('/') == 3:
+				for y in j:
+					word_diction[i] = y
 
-splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
+	print(word_diction)
+
+	# Create for loop to print out all artists' names
+
+#splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
+
+web_parser()
