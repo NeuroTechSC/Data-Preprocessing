@@ -6,15 +6,15 @@ import pickle
 import pandas as pd
 import mne
 import time
-
+import sklearn
 import brainflow
 from brainflow.board_shim import BoardShim, BrainFlowInputParams
 
 
 async def processing(sample):
-  print ("SAMPLE DATA LEN:" + str(len(sample)))
-  # TODO: Transposoing reduces len to 0
+  
   sample = np.transpose(sample)
+
   ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
         'EXG Channel 6']
   #Butterworth filter
@@ -48,24 +48,25 @@ async def processing(sample):
 
   return_data = filtered_raw_numpy
   print(return_data)
-  print('HI')
+  print('Processing Finished')
 
-async def recordData(board_id=-1, samples=250):
+async def recordData(board_id=-1, samples=7):
     params = BrainFlowInputParams()
     # params.serial_port = serial_port
     board = BoardShim(board_id, params)
     board.prepare_session()
 
     board.start_stream(samples + 1)
-    # time.sleep(2.5)
-    data = board.get_board_data()
-    time.sleep(1.0)
+    
     while True:
       count = board.get_board_data_count()
-      if count > 0:
-        print(len(data))
-        processed_data = await processing(data)
+      print("Count:" + str(count))
+      if count == 7:
+        print("New Data!")
         data = board.get_board_data()
+        # print(len(data))
+        # print(data)
+        processed_data = await processing(data)
   
     board.stop_stream()
     board.release_session()
