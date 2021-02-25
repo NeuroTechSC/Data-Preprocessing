@@ -51,7 +51,7 @@ def main ():
     ##############################################################
     # Raw Data                                                   #
     ##############################################################
-    
+
     print('Data From the File')
     print(restored_df.head(10))
 
@@ -92,14 +92,12 @@ def main ():
 
     filtered_raw = mne.filter.filter_data(data, sfreq = sfreq, l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
 
+    # get rid of the spike
+    filtered_raw = filtered_raw[0:, 190:]
 
-    filtered_data = mne.io.RawArray(filtered_raw[0:, 73:], info)
+    filtered_data = mne.io.RawArray(filtered_raw, info)
     print(filtered_data.info)
 
-    # filtered_raw_numpy = filtered_data[:][0]
-    # filtered_raw_numpy[0:, 72:]
-
-    #filtered_data = filtered_data[0:, 72:]
     #Plotting filtered data
     filtered_data.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,
@@ -112,9 +110,9 @@ def main ():
     ##############################################################
 
     #Setting up data for fitting
-    ica_info = mne.create_info(ch_names, sfreq, ch_types='eeg') 
+    ica_info = mne.create_info(ch_names, sfreq, ch_types='eeg')
     ica_data = mne.io.RawArray(filtered_raw, ica_info)
-    
+
     #Fitting and applying ICA
     ica = mne.preprocessing.ICA(verbose = True)
     ica.fit(inst = ica_data)
@@ -135,9 +133,9 @@ def main ():
     preprocessed_raw = ica_data[:][0]
     normalized_raw = sk.normalize(preprocessed_raw, norm='l2')
     print((normalized_raw))
-    
+
     normalized_data = mne.io.RawArray(normalized_raw, info)
-    
+
     normalized_data.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
     emg=5e-3, ref_meg=1e-12, misc=1e-3, stim=1,
     resp=1, chpi=1e-4, whitened=1e2))
