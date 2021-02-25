@@ -17,7 +17,7 @@ def main ():
     directory = os.path.dirname(os.path.abspath(__file__))
 
     # renames .txt files to .csv and then prints its contents
-    filename = 'OpenBCI-RAW-2020-11-11_08-42-41YES.txt'
+    filename = 'talk_dock1.txt'
     restored_data = DataFilter.read_file(filename)
     print(restored_data.shape)
     if (restored_data.shape[0] > 9):  # If the timestamp has not already been removed then we will remove it
@@ -68,6 +68,8 @@ def main ():
 
     data = data.astype(float)
 
+    print(data.shape)
+
     raw = mne.io.RawArray(data, info)
     print(raw)
     print(raw.info)
@@ -90,9 +92,14 @@ def main ():
 
     filtered_raw = mne.filter.filter_data(data, sfreq = sfreq, l_freq = None, h_freq = f_p, picks = None, method = 'iir', iir_params = iir_params, copy = False, verbose = True)
 
-    filtered_data = mne.io.RawArray(filtered_raw, info)
+
+    filtered_data = mne.io.RawArray(filtered_raw[0:, 73:], info)
     print(filtered_data.info)
 
+    # filtered_raw_numpy = filtered_data[:][0]
+    # filtered_raw_numpy[0:, 72:]
+
+    #filtered_data = filtered_data[0:, 72:]
     #Plotting filtered data
     filtered_data.plot(block = True, scalings=dict(mag=1e-12, grad=4e-11, eeg=20e-6, eog=150e-6, ecg=5e-4,
      emg=1e2, ref_meg=1e-12, misc=1e-3, stim=1,

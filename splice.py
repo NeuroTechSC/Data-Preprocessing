@@ -87,21 +87,26 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	print(len(labels))
 
 
-async def recordData(serial_port, board_id=0, samples=500):
-    params = BrainFlowInputParams()
-    params.serial_port = serial_port
-    board = BoardShim(board_id, params)
-    board.prepare_session()
+def recordData(board_id=-1, samples=450000):
+	params = BrainFlowInputParams()
+	#params.serial_port = serial_port
+	board = BoardShim(board_id, params)
+	board.prepare_session()
 
-    board.start_stream(samples + 1)
-    #time.sleep(2.5)
+	board.start_stream(samples + 1)
+	#time.sleep(2.5)
 
-    data = board.get_board_data()
-    board.stop_stream()
-    board.release_session()
+	data = board.get_board_data()
+	for i in range(0, 5):
+		print('try')
+		print(data)
+		data = board.get_board_data()
+	print(data)
+	board.stop_stream()
+	board.release_session()
 
-    data = data[:7].T
-    return data
+	data = data[:7].T
+	return data
 
 
 # We're going recording the data and processing in parrallel
@@ -138,4 +143,5 @@ def web_parser():
 
 #splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
 
-web_parser()
+#web_parser()
+recordData()
