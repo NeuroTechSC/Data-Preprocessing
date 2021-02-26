@@ -131,17 +131,48 @@ def web_parser():
 		page = requests.get('https://en.wiktionary.org/wiki/' + i)
 		soup = BeautifulSoup(page.text, 'html.parser')
 		IPA_list = soup.findAll(class_='IPA')
-		print(i)
+		#print(i)
 		for j in IPA_list:
 			if str(j).count('/') == 3:
 				for y in j:
 					word_diction[i] = y
+	compare('/siˈætl̩/', word_diction)
 
-	print(word_diction)
+	#print(word_diction)
 
+def compare(input_IPA, word_diction):
+	score = 0
+	best_score = 0
+	best_one = word_diction['Seattle']
+	x = 0
+	for i in word_diction:
+		for j in word_diction[i]:
+			if x > (len(input_IPA) -1):
+				break
+			#if word_diction[i][j] == input_IPA[i]:
+			if j == input_IPA[x]: 
+			# if word_diction[i].get(j) == input_IPA[i]:
+				print(best_one)
+				score += 1
+				if score > best_score:
+					best_score = score
+					best_one = word_diction[i]
+			x += 1
+		x = 0
+		score = 0
+
+		# for symbol in word_diction[key]:
+		# 	for j in len(inputIPA):
+		# 	print(symbol)
+		# for letter in i:
+		# 	print (letter)
+		# 
+		# 	if inputIPA[j] == word_dictioncalue
 	# Create for loop to print out all artists' names
 
 #splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
 
-#web_parser()
-recordData()
+web_parser()
+
+
+#recordData()
