@@ -1,13 +1,13 @@
 import csv
 import pickle
 import numpy as np
-from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
-from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
+#from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
+
 import mne
 import requests
 from bs4 import BeautifulSoup
 import asyncio
-
+from difflib import get_close_matches
 stored_data = 0
 return_data = 0
 
@@ -87,27 +87,27 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	print(len(labels))
 
 
-def recordData(board_id=-1, samples=450000):
-	params = BrainFlowInputParams()
+#def recordData(board_id=-1, samples=450000):
+	#params = BrainFlowInputParams()
 	#params.serial_port = serial_port
-	board = BoardShim(board_id, params)
-	board.prepare_session()
+	#board = BoardShim(board_id, params)
+	#board.prepare_session()
 
-	board.start_stream(samples + 1)
+	#board.start_stream(samples + 1)
 	#time.sleep(2.5)
 
-	data = board.get_board_data()
-	for i in range(0, 5):
-		print('try')
-		print(data)
-		data = board.get_board_data()
-	print(data)
-	board.stop_stream()
-	board.release_session()
-
-	data = data[:7].T
-	return data
-
+	#
+#data = board.get_board_data()
+	# for i in range(0, 5):
+	# 	print('try')
+	# 	print(data)
+	# 	data = board.get_board_data()
+	# print(data)
+	# board.stop_stream()
+	# board.release_session()
+	#
+	# data = data[:7].T
+	# return data
 
 # We're going recording the data and processing in parrallel
 async def driver():
@@ -136,30 +136,33 @@ def web_parser():
 			if str(j).count('/') == 3:
 				for y in j:
 					word_diction[i] = y
-	compare('/siˈætl̩/', word_diction)
+	compare('/ˌsæn/', word_diction)
 
-	#print(word_diction)
+	print(word_diction)
 
 def compare(input_IPA, word_diction):
-	score = 0
-	best_score = 0
-	best_one = word_diction['Seattle']
-	x = 0
-	for i in word_diction:
-		for j in word_diction[i]:
-			if x > (len(input_IPA) -1):
-				break
-			#if word_diction[i][j] == input_IPA[i]:
-			if j == input_IPA[x]: 
-			# if word_diction[i].get(j) == input_IPA[i]:
-				print(best_one)
-				score += 1
-				if score > best_score:
-					best_score = score
-					best_one = word_diction[i]
-			x += 1
-		x = 0
-		score = 0
+
+	best = get_close_matches(input_IPA, word_diction.values())
+	print(best)
+	# score = 0
+	# best_score = 0
+	# best_one = word_diction['Seattle']
+	# x = 0
+	# for i in word_diction:
+	# 	for j in word_diction[i]:
+	# 		if x > (len(input_IPA) -1):
+	# 			break
+	# 		#if word_diction[i][j] == input_IPA[i]:
+	# 		if j == input_IPA[x]:
+	# 		# if word_diction[i].get(j) == input_IPA[i]:
+	# 			print(best_one)
+	# 			score += 1
+	# 			if score > best_score:
+	# 				best_score = score
+	# 				best_one = word_diction[i]
+	# 		x += 1
+	# 	x = 0
+	# 	score = 0
 
 		# for symbol in word_diction[key]:
 		# 	for j in len(inputIPA):
