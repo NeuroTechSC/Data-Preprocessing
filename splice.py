@@ -136,12 +136,15 @@ def web_parser():
 			if str(j).count('/') == 3:
 				for y in j:
 					word_diction[i] = y
-	compare('/ˌsæn/', word_diction)
+
+	compare('/siˈætl̩/', word_diction)
 
 	print(word_diction)
 
 def compare(input_IPA, word_diction):
 
+	#place of articulation, manner of articulation, occlusion
+	#vectors for each letter....vowel height, vowel frontedness, labialization
 	best = get_close_matches(input_IPA, word_diction.values())
 	print(best)
 	# score = 0

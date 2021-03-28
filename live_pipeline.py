@@ -12,6 +12,8 @@ from brainflow.board_shim import BoardShim, BrainFlowInputParams
 
 
 async def processing(sample):
+
+  sample = sample.T
   ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
         'EXG Channel 6']
   #Butterworth filter
@@ -63,9 +65,8 @@ async def recordData(board_id=-1, samples=450000):
     if board.get_board_data_count() > 1:
       data = board.get_board_data()
       print(data.shape)
-      # print(len(data))
-      # print(data)
-      data = data[:7]
+
+      #data = data[:7]
       unprocessed_data = np.append(unprocessed_data,data, axis=1)
 
       processed_data = await processing(data)
@@ -75,7 +76,7 @@ async def recordData(board_id=-1, samples=450000):
   board.stop_stream()
   board.release_session()
 
-  # data = data[:7].T
+  data = data[:7].T
   print(type(unprocessed_data))
   np.savetxt("unprocessed_data.csv", unprocessed_data, delimiter=',', newline='\n')
   return data
