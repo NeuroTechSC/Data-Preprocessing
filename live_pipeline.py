@@ -12,9 +12,8 @@ from brainflow.board_shim import BoardShim, BrainFlowInputParams
 
 
 async def processing(sample):
-  
-  sample = np.transpose(sample)
 
+  sample = sample.T
   ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
         'EXG Channel 6']
   #Butterworth filter
@@ -47,31 +46,39 @@ async def processing(sample):
   filtered_raw_numpy = ica_data[:][0]
 
   return_data = filtered_raw_numpy
+  return return_data  
   print(return_data)
   print('Processing Finished')
 
-async def recordData(board_id=-1, samples=7):
-    params = BrainFlowInputParams()
-    # params.serial_port = serial_port
-    board = BoardShim(board_id, params)
-    board.prepare_session()
+async def recordData(board_id=-1, samples=450000):
+  unprocessed_data = [[0],[0],[0],[0],[0],[0],[0]]
+  all_processed_data  = [[0],[0],[0],[0],[0],[0],[0]]
+  params = BrainFlowInputParams()
+  # params.serial_port = serial_port
+  board = BoardShim(board_id, params)
+  board.prepare_session()
 
-    board.start_stream(samples + 1)
-    
-    while True:
-      count = board.get_board_data_count()
-      print("Count:" + str(count))
-      if count == 7:
-        print("New Data!")
-        data = board.get_board_data()
-        # print(len(data))
-        # print(data)
-        processed_data = await processing(data)
-  
-    board.stop_stream()
-    board.release_session()
+  board.start_stream(samples + 1)
 
-    # data = data[:7].T
-    return data
+  i = 0
+  while i < 1000:
+    if board.get_board_data_count() > 1:
+      data = board.get_board_data()
+      print(data.shape)
+
+      #data = data[:7]
+      unprocessed_data = np.append(unprocessed_data,data, axis=1)
+
+      processed_data = await processing(data)
+      all_processed_data = np.append(all_processed_data, processed_data, axis=1)
+    i = i + 1
+
+  board.stop_stream()
+  board.release_session()
+
+  data = data[:7].T
+  print(type(unprocessed_data))
+  np.savetxt("unprocessed_data.csv", unprocessed_data, delimiter=',', newline='\n')
+  return data
 
 asyncio.run(recordData())

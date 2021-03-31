@@ -1,14 +1,8 @@
-import argparse
-import time
 import numpy as np
 import pandas as pd
 import os
 import mne
-from mne.preprocessing import (ICA, create_eog_epochs, create_ecg_epochs,
-                               corrmap)
-from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
-from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
-from sklearn.decomposition import FastICA
+from brainflow.data_filter import DataFilter
 from sklearn import preprocessing as sk
 def main ():
 
@@ -17,7 +11,7 @@ def main ():
     directory = os.path.dirname(os.path.abspath(__file__))
 
     # renames .txt files to .csv and then prints its contents
-    filename = 'talk_dock1.txt'
+    filename = 'new_live_data.csv'
     restored_data = DataFilter.read_file(filename)
     print(restored_data.shape)
     if (restored_data.shape[0] > 9):  # If the timestamp has not already been removed then we will remove it

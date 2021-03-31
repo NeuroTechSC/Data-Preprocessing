@@ -136,12 +136,14 @@ def web_parser():
 			if str(j).count('/') == 3:
 				for y in j:
 					word_diction[i] = y
-	compare('/ˌsæn/', word_diction)
+
+	compare('/siˈætl̩/', word_diction)
 
 	print(word_diction)
 
 def compare(input_IPA, word_diction):
 
+<<<<<<< HEAD
 	articulation = {'ŋ':0,'k':0,'g':0,'x':0,'w':0,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':1,'ʃ':1,'ʒ':1,'r':1,'j':1,'n':2,'t':2,'d':2,'s':2,'z':2,'l':2,'θ':3,'ð':3,'m':4,'p':4,'b':4,'f':4,'v':4}
 	manor = {'ŋ':2,'k':0,'g':0,'x':0,'w':-1,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':0,'ʃ':1,'ʒ':0,'r':-1,'j':-1,'n':2,'t':1,'d':0,'s':1,'z':0,'l':-1,'θ':1,'ð':0,'m':2,'p':1,'b':0,'f':1,'v':0}
 	occlusion = {'ŋ': -1, 'k': 0, 'g': 0, 'x': 1, 'w': 2, 'h': 1, 'tʃ': 0, 'dʒ': 0,
@@ -155,6 +157,10 @@ def compare(input_IPA, word_diction):
 			word_vectors[letters_index][1] = manor[key[letters_index]]
 			word_vectors[letters_index][2] = occlusion[key[letters_index]]
 	print(diction_vectors)
+=======
+	#place of articulation, manner of articulation, occlusion
+	#vectors for each letter....vowel height, vowel frontedness, labialization
+>>>>>>> 176889d64ce3ba788e0a0fb6b86fdae4fd106420
 	best = get_close_matches(input_IPA, word_diction.values())
 	print(best)
 	# score = 0
