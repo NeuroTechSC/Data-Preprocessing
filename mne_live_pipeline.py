@@ -88,7 +88,7 @@ def main():
         else:
             temp = mne.io.RawArray(processed_data, info)
             raw.append(temp)
-            
+            raw.annotations.delete(int(i/250))
         print(raw)
         print(raw.info)
 
