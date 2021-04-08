@@ -125,7 +125,7 @@ def web_parser():
 				for y in j:
 					word_diction[i] = y
 
-	#compare('/siˈætl̩/', word_diction)
+	compare('/siˈætl̩/', word_diction)
 
 	print(word_diction)
 
@@ -149,11 +149,13 @@ def compare(input_IPA, word_diction):
 		for letters_index in range(len(key)):
 			if key[letters_index] != '/' and key[letters_index] != "\\":
 				print(key)
-				if key not in IPA_vowels:
+				if key[letters_index] not in IPA_vowels:
+					print(key[letters_index])
 					word_vectors[letters_index][0] = articulation[key[letters_index]]
 					word_vectors[letters_index][1] = manor[key[letters_index]]
 					word_vectors[letters_index][2] = occlusion[key[letters_index]]
-				elif key not in IPA_symbols:
+				elif key[letters_index] not in IPA_symbols:
+					print(key[letters_index])
 					word_vectors[letters_index][0] = placement[letters_index]
 					word_vectors[letters_index][1] = rank[letters_index]
 					word_vectors[letters_index][2] = subranks[letters_index]
