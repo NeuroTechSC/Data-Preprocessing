@@ -109,18 +109,6 @@ def splice(filename, channels=8, hz=250, chunkSecs=2):
 	# data = data[:7].T
 	# return data
 
-# We're going recording the data and processing in parrallel
-async def driver():
-	#record and processing synch..
-	record_task = recordData(55)
-	next_data = record_task
-	await asyncio.gather(
-		# factorial("A", 2),
-		# factorial("B", 3),
-		# factorial("C", 4),
-		processing(record_task),
-	)
-
 def web_parser():
 	word_list = ['Seattle', 'San Francisco', 'Los Angeles', 'Berkeley', 'Houston', 'Chicago',
 				'Davis', 'Oakland', 'Santa Cruz', 'San Jose', 'Austin', 'Denver',
@@ -137,7 +125,7 @@ def web_parser():
 				for y in j:
 					word_diction[i] = y
 
-	compare('/siˈætl̩/', word_diction)
+	#compare('/siˈætl̩/', word_diction)
 
 	print(word_diction)
 
@@ -148,22 +136,34 @@ def compare(input_IPA, word_diction):
 	manor = {'ŋ':2,'k':0,'g':0,'x':0,'w':-1,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':0,'ʃ':1,'ʒ':0,'r':-1,'j':-1,'n':2,'t':1,'d':0,'s':1,'z':0,'l':-1,'θ':1,'ð':0,'m':2,'p':1,'b':0,'f':1,'v':0}
 	occlusion = {'ŋ': -1, 'k': 0, 'g': 0, 'x': 1, 'w': 2, 'h': 1, 'tʃ': 0, 'dʒ': 0,
 				 'ʃ': 1, 'ʒ': 1, 'r': 2, 'j': 2, 'n': -1, 't': 0, 'd': 0, 's': 1, 'z': 1, 'l': 2, 'θ': 1,'ð':1,'m':-1,'p':0,'b':0,'f':1,'v':1}
+
+	IPA_vowels = ['ɪ', 'e', 'æ', 'ʌ', 'ʊ', 'ɒ', 'ə', 'o', 'i']
+	IPA_symbols = ["'", ':', '.', '̃.', 'ː']
+	#back = 1, central = 2, front = 3
+	placement = {'ɪ':2.8, 'e': 3, 'æ': 3, 'ʌ': 1, 'ʊ': 1.25, 'ɒ': 1, 'ə': 2, 'o': 1, 'i': 3}
+	rank = {'ɪ':2, 'e': 3, 'æ': 6, 'ʌ': 5, 'ʊ': 2, 'ɒ': 7, 'ə': 4, 'o': 3, 'i': 1}
+	subranks = {'ɪ':1.5, 'e': 2, 'æ': 4.25, 'ʌ': 15, 'ʊ': 2, 'ɒ': 16, 'ə': 8, 'o': 13, 'i': 1}
 	diction_vectors = {}
 	for key in word_diction.values():
-		word_vectors = np.zeros((len(key),3))
+		word_vectors = np.zeros((len(key), 3))
 		for letters_index in range(len(key)):
 			if key[letters_index] != '/' and key[letters_index] != "\\":
 				print(key)
-				word_vectors[letters_index][0] = articulation[key[letters_index]]
-				word_vectors[letters_index][1] = manor[key[letters_index]]
-				word_vectors[letters_index][2] = occlusion[key[letters_index]]
+				if key not in IPA_vowels:
+					word_vectors[letters_index][0] = articulation[key[letters_index]]
+					word_vectors[letters_index][1] = manor[key[letters_index]]
+					word_vectors[letters_index][2] = occlusion[key[letters_index]]
+				elif key not in IPA_symbols:
+					word_vectors[letters_index][0] = placement[letters_index]
+					word_vectors[letters_index][1] = rank[letters_index]
+					word_vectors[letters_index][2] = subranks[letters_index]
 		diction_vectors[key] = word_vectors
 	print(diction_vectors)
 
 	#place of articulation, manner of articulation, occlusion
 	#vectors for each letter....vowel height, vowel frontedness, labialization
-	best = get_close_matches(input_IPA, word_diction.values())
-	print(best)
+	# best = get_close_matches(input_IPA, word_diction.values())
+	# print(best)
 	# score = 0
 	# best_score = 0
 	# best_one = word_diction['Seattle']
