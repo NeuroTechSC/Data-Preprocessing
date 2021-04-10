@@ -49,24 +49,10 @@ def processing(sample):
   filtered_raw_numpy = ica_data[:][0]
 
   return_data = filtered_raw_numpy
-  return return_data  
-  print(return_data)
-  print('Processing Finished')
+  return return_data
 
-def main():
-    BoardShim.enable_dev_board_logger()
-    # use synthetic board for demo
-    
-    ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
-                'EXG Channel 6']
-    sfreq = 250
-    info = mne.create_info(ch_names, sfreq, ch_types='emg')
-
-    params = BrainFlowInputParams()
-    board = BoardShim(BoardIds.SYNTHETIC_BOARD.value, params)
-    board.prepare_session()
-    board.start_stream()
-
+def get_one_chunk(board, info):
+    return_stream = []
     i = 0
     while i < 1250: #5 secs
         
@@ -77,45 +63,53 @@ def main():
         eeg_channels = eeg_channels[:7]
         eeg_data = data[:, eeg_channels]
         processed_data = processing(eeg_data)
-        print("PROCESSED DATA:")
-        print(processed_data)
+        # print("PROCESSED DATA:")
+        # print(processed_data)
 
         
         np.transpose(processed_data)
         processed_data = processed_data.astype(float)
         if i < 250:
-            raw = mne.io.RawArray(processed_data, info)
+            #raw = mne.io.RawArray(processed_data, info)
+            #np.append(return_stream, processed_data)
+            return_stream.append(processed_data)
         else:
-            temp = mne.io.RawArray(processed_data, info)
-            raw.append(temp)
-            raw.annotations.delete(int(i/250))
-        print(raw)
-        print(raw.info)
+            # temp = mne.io.RawArray(processed_data, info)
+            # raw.append(temp)
+            # raw.annotations.delete(int(i/250))
+            #np.append(return_stream, processed_data, axis=0)
+            return_stream.append(processed_data)
 
-        if i == 1000:
-            raw.plot(block = True, scalings="auto")
-
-        #print(eeg_data)
-        # with open('new_live_data.csv', 'w', newline='') as file:#NEED TO APPEND TO FILE
-        #     writer = csv.writer(file)
-        #     for rows in range(eeg_data.shape[0]):
-        #         writer.writerow(eeg_data[rows])
-        # np.savetxt("new_live_data.csv", eeg_data, delimiter=',', newline='\n')
         i+=250
-    #eeg_data = eeg_data / 1000000  # BrainFlow returns uV, convert to V for MNE
+    return np.asarray(return_stream)
+
+def chunk_generator(board,limit, info):
+    i = 0
+    while i < limit:
+        yield  get_one_chunk(board, info)
+        i+=1
+
+
+def driver():
+    BoardShim.enable_dev_board_logger()
+    # use synthetic board for demo
+
+    ch_names = ['EXG Channel 0', 'EXG Channel 1', 'EXG Channel 2', 'EXG Channel 3', 'EXG Channel 4', 'EXG Channel 5',
+                'EXG Channel 6']
+    sfreq = 250
+    info = mne.create_info(ch_names, sfreq, ch_types='emg')
+
+    params = BrainFlowInputParams()
+    board = BoardShim(BoardIds.SYNTHETIC_BOARD.value, params)
+    board.prepare_session()
+    board.start_stream()
+
+    for chunks in chunk_generator(board, 1, info):
+        print(chunks)
+        temp = mne.io.RawArray(chunks, info)
+        temp.plot(block = True, scalings="auto")
+
     board.stop_stream()
     board.release_session()
-    # Creating MNE objects from brainflow data arrays
-    # ch_types = ['eeg'] * len(eeg_channels)
-    # ch_names = BoardShim.get_eeg_names(BoardIds.SYNTHETIC_BOARD.value)
-    # sfreq = BoardShim.get_sampling_rate(BoardIds.SYNTHETIC_BOARD.value)
-    # info = mne.create_info(ch_names=ch_names, sfreq=sfreq, ch_types=ch_types)
-    # np.savetxt("new_live_data.csv", eeg_data, delimiter=',', newline='\n')
-    # raw = mne.io.RawArray(eeg_data, info)
-    # # its time to plot something!
-    # raw.plot_psd(average=True)
-    # plt.savefig('psd.png')
 
-
-if __name__ == '__main__':
-    main()
+driver()
