@@ -132,33 +132,36 @@ def web_parser():
 def compare(input_IPA, word_diction):
 
 
-	articulation = {'ŋ':0,'k':0,'g':0,'x':0,'w':0,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':1,'ʃ':1,'ʒ':1,'r':1,'j':1,'n':2,'t':2,'d':2,'s':2,'z':2,'l':2,'θ':3,'ð':3,'m':4,'p':4,'b':4,'f':4,'v':4}
-	manor = {'ŋ':2,'k':0,'g':0,'x':0,'w':-1,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':0,'ʃ':1,'ʒ':0,'r':-1,'j':-1,'n':2,'t':1,'d':0,'s':1,'z':0,'l':-1,'θ':1,'ð':0,'m':2,'p':1,'b':0,'f':1,'v':0}
-	occlusion = {'ŋ': -1, 'k': 0, 'g': 0, 'x': 1, 'w': 2, 'h': 1, 'tʃ': 0, 'dʒ': 0,
-				 'ʃ': 1, 'ʒ': 1, 'r': 2, 'j': 2, 'n': -1, 't': 0, 'd': 0, 's': 1, 'z': 1, 'l': 2, 'θ': 1,'ð':1,'m':-1,'p':0,'b':0,'f':1,'v':1}
+	articulation = {'ŋ':0,'k':0,'ɡ':0,'x':0,'w':0,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':1,'ʃ':1,'ʒ':1,'ɹ':1,'j':1,'n':2,'t':2,'d':2,'s':2,'z':2,'l':2,'θ':3,'ð':3,'m':4,'p':4,'b':4,'f':4,'v':4, 'ç': 1, 'ɾ': 1}
+	manor = {'ŋ':2,'k':0,'ɡ':0,'x':0,'w':-1,'h':0,'tʃ':1,'dʒ':1,'tʃ':1,'dʒ':0,'ʃ':1,'ʒ':0,'ɹ':-1,'j':-1,'n':2,'t':1,'d':0,'s':1,'z':0,'l':-1,'θ':1,'ð':0,'m':2,'p':1,'b':0,'f':1,'v':0, 'ç':3 , 'ɾ': 4}
+	occlusion = {'ŋ': -1, 'k': 0, 'ɡ': 0, 'x': 1, 'w': 2, 'h': 1, 'tʃ': 0, 'dʒ': 0,
+				 'ʃ': 1, 'ʒ': 1, 'ɹ': 2, 'j': 2, 'n': -1, 't': 0, 'd': 0, 's': 1, 'z': 1, 'l': 2, 'θ': 1,'ð':1,'m':-1,'p':0,'b':0,'f':1,'v':1, 'ç': -1, 'ɾ':-1}
 
-	IPA_vowels = ['ɪ', 'e', 'æ', 'ʌ', 'ʊ', 'ɒ', 'ə', 'o', 'i']
-	IPA_symbols = ["'", ':', '.', '̃.', 'ː']
+	IPA_vowels = ['ɪ', 'e', 'æ', 'ʌ', 'ʊ', 'ɒ', 'ə', 'o', 'i', 'ɐ', 'ɝ','u', 'a', 'ɛ', 'ɚ', 'ô', 'ɔ']
+	IPA_symbols = ['ˈ', ':', '.', '̃.', 'ː', '̩', 'ˌ', ' ', '̃']
 	#back = 1, central = 2, front = 3
-	placement = {'ɪ':2.8, 'e': 3, 'æ': 3, 'ʌ': 1, 'ʊ': 1.25, 'ɒ': 1, 'ə': 2, 'o': 1, 'i': 3}
-	rank = {'ɪ':2, 'e': 3, 'æ': 6, 'ʌ': 5, 'ʊ': 2, 'ɒ': 7, 'ə': 4, 'o': 3, 'i': 1}
-	subranks = {'ɪ':1.5, 'e': 2, 'æ': 4.25, 'ʌ': 15, 'ʊ': 2, 'ɒ': 16, 'ə': 8, 'o': 13, 'i': 1}
+	placement = {'ɪ':2.8, 'e': 3, 'æ': 3, 'ʌ': 1, 'ʊ': 1.25, 'ɒ': 1, 'ə': 2, 'ɚ': 2, 'o': 1, 'i': 3, 'ɐ': 2, 'ɝ': 2 ,'u': 1, 'a': 3 , 'ɛ': 3, 'ô': 1, 'ɔ':1}
+	rank = {'ɪ':2, 'e': 3, 'æ': 6, 'ʌ': 5, 'ʊ': 2, 'ɒ': 7, 'ə': 4, 'ɚ':4, 'o': 3, 'i': 1, 'ɐ': 6.5, 'ɝ': 6, 'u': 1, 'a': 7, 'ɛ': 5, 'ô': 3 , 'ɔ':5}
+	subranks = {'ɪ':1.5, 'e': 2, 'æ': 4.25, 'ʌ': 15, 'ʊ': 2, 'ɒ': 16, 'ə': 8, 'o': 13, 'i': 1, 'ɐ': 10, 'ɝ': 9, 'u': 12, 'a': 5, 'ɛ':4, 'ɚ': 8, 'ô': 13,'ɔ': 15}
 	diction_vectors = {}
 	for key in word_diction.values():
 		word_vectors = np.zeros((len(key), 3))
 		for letters_index in range(len(key)):
 			if key[letters_index] != '/' and key[letters_index] != "\\":
 				print(key)
-				if key[letters_index] not in IPA_vowels:
+				if key[letters_index] not in IPA_vowels and key[letters_index] not in IPA_symbols:
 					print(key[letters_index])
 					word_vectors[letters_index][0] = articulation[key[letters_index]]
 					word_vectors[letters_index][1] = manor[key[letters_index]]
 					word_vectors[letters_index][2] = occlusion[key[letters_index]]
 				elif key[letters_index] not in IPA_symbols:
 					print(key[letters_index])
-					word_vectors[letters_index][0] = placement[letters_index]
-					word_vectors[letters_index][1] = rank[letters_index]
-					word_vectors[letters_index][2] = subranks[letters_index]
+					print(letters_index)
+					word_vectors[letters_index][0] = placement[key[letters_index]]
+					word_vectors[letters_index][1] = rank[key[letters_index]]
+					word_vectors[letters_index][2] = subranks[key[letters_index]]
+				else :
+					print(key[letters_index])
 		diction_vectors[key] = word_vectors
 	print(diction_vectors)
 
