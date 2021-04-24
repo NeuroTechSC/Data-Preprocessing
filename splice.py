@@ -165,6 +165,10 @@ def compare(input_IPA, word_diction):
 		diction_vectors[key] = word_vectors
 	print(diction_vectors)
 
+	(len of the word x 3)...have two matrices which will often not be the same shape and you want to compare them...
+	have to compare each and every value...
+	loop through each matrix....loop through all the values in the smaller matrix and loop through the same # of values in the big matrix
+	GOAL: COMPARE INPUT MATRICES AND CHOOSE WHICH ONE IS MOSTLY SIMILAR IN VALUES TO THE INPUT MATRIX.
 	#place of articulation, manner of articulation, occlusion
 	#vectors for each letter....vowel height, vowel frontedness, labialization
 	# best = get_close_matches(input_IPA, word_diction.values())

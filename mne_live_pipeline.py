@@ -54,34 +54,37 @@ def processing(sample):
 def get_one_chunk(board, info):
     return_stream = []
     i = 0
-    while i < 1250: #5 secs
-        
-        time.sleep(5)
-        data = board.get_board_data()
-        
-        eeg_channels = BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value)
-        eeg_channels = eeg_channels[:7]
-        eeg_data = data[:, eeg_channels]
-        processed_data = processing(eeg_data)
-        # print("PROCESSED DATA:")
-        # print(processed_data)
+    # while i < 1250: #5 secs
 
-        
-        np.transpose(processed_data)
-        processed_data = processed_data.astype(float)
-        if i < 250:
-            #raw = mne.io.RawArray(processed_data, info)
-            #np.append(return_stream, processed_data)
-            return_stream.append(processed_data)
-        else:
-            # temp = mne.io.RawArray(processed_data, info)
-            # raw.append(temp)
-            # raw.annotations.delete(int(i/250))
-            #np.append(return_stream, processed_data, axis=0)
-            return_stream.append(processed_data)
+    time.sleep(5)
+    data = board.get_board_data()
 
-        i+=250
-    return np.asarray(return_stream)
+    eeg_channels = BoardShim.get_eeg_channels(BoardIds.SYNTHETIC_BOARD.value)
+    eeg_channels = eeg_channels[:7]
+    eeg_data = data[:, eeg_channels]
+    processed_data = processing(eeg_data)
+    # print("PROCESSED DATA:")
+    # print(processed_data)
+
+
+    np.transpose(processed_data)
+    processed_data = processed_data.astype(float)
+    return processed_data
+    # if i < 250:
+    #     #raw = mne.io.RawArray(processed_data, info)
+    #     #np.append(return_stream, processed_data)
+    #     return_stream.append(processed_data)
+    # else:
+    #     # temp = mne.io.RawArray(processed_data, info)
+    #     # raw.append(temp)
+    #     # raw.annotations.delete(int(i/250))
+    #     #np.append(return_stream, processed_data, axis=0)
+    #     return_stream.append(processed_data)
+    #
+    # i+=250
+    # return np.asarray(return_stream)
+
+
 
 def chunk_generator(board,limit, info):
     i = 0
@@ -104,7 +107,11 @@ def driver():
     board.prepare_session()
     board.start_stream()
 
-    for chunks in chunk_generator(board, 1, info):
+    # for i in range(0, 5):
+    #     chunk = get_one_chunk(board, info)
+    #     print(chunk)
+
+    for chunks in chunk_generator(board, 5, info):
         print(chunks)
         temp = mne.io.RawArray(chunks, info)
         temp.plot(block = True, scalings="auto")
