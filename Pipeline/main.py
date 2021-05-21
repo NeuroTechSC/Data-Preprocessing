@@ -11,7 +11,7 @@ def main ():
     directory = os.path.dirname(os.path.abspath(__file__))
 
     # renames .txt files to .csv and then prints its contents
-    filename = 'OpenBCI-RAW-2020-11-11_08-42-41YES.txt'
+    filename = 'OpenBCI-RAW-2020-08-28_23-19-46.csv'
     restored_data = DataFilter.read_file(filename)
     print(restored_data.shape)
     if (restored_data.shape[0] > 9):  # If the timestamp has not already been removed then we will remove it
