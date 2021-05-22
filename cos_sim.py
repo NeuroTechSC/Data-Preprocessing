@@ -125,7 +125,7 @@ def web_parser():
 				for y in j:
 					word_diction[i] = y
 
-	compare('/siˈætl̩/', word_diction)
+	compare('/ˌsæn ɚɹænˈsɪskoʊ/', word_diction)
 
 	print(word_diction)
 
@@ -182,12 +182,18 @@ def compare(input_IPA, word_diction):
 			word_vectors_input[letters_index][1] = -10
 			word_vectors_input[letters_index][2] = -10
 
+	word_vectors_input = np.true_divide(word_vectors_input, 1.05) #make the matrix look similar to predictive matrices coming from ML model.
 	print("Matrix of the input_IPA is :", word_vectors_input)
+
+
 	min_val = 9999
 	min_key = 0
+	sim = 9999
 	for key in diction_vectors.keys():
 		a, b = diction_vectors[key], word_vectors_input
-		sim = np.linalg.norm(a-b)
+		if len(a) == len(b):
+			sim = np.linalg.norm(a-b)
+			print(sim)
 		if sim < min_val:
 			min_key = key
 			min_val = sim
