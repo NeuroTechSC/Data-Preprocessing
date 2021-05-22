@@ -3,17 +3,11 @@
 import csv
 import pickle
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy import sparse
-import scipy.spatial as sp
-from scipy import linalg, mat, dot
-#from brainflow.board_shim import BoardShim, BrainFlowInputParams, LogLevels, BoardIds
 
 import mne
 import requests
 from bs4 import BeautifulSoup
 import asyncio
-from difflib import get_close_matches
 stored_data = 0
 return_data = 0
 
@@ -144,7 +138,7 @@ def compare(input_IPA, word_diction):
 				 'ʃ': 1, 'ʒ': 1, 'ɹ': 2, 'j': 2, 'n': -1, 't': 0, 'd': 0, 's': 1, 'z': 1, 'l': 2, 'θ': 1,'ð':1,'m':-1,'p':0,'b':0,'f':1,'v':1, 'ç': -1, 'ɾ':-1}
 
 	IPA_vowels = ['ɪ', 'e', 'æ', 'ʌ', 'ʊ', 'ɒ', 'ə', 'o', 'i', 'ɐ', 'ɝ','u', 'a', 'ɛ', 'ɚ', 'ô', 'ɔ']
-	IPA_symbols = ['ˈ', ':', '.', '̃.', 'ː', '̩', 'ˌ', ' ', '̃']
+	IPA_symbols = ['ˈ', ':', '.', '̃.', 'ː', '̩', 'ˌ', ' ', '̃', '/', '\\']
 	#back = 1, central = 2, front = 3
 	placement = {'ɪ':2.8, 'e': 3, 'æ': 3, 'ʌ': 1, 'ʊ': 1.25, 'ɒ': 1, 'ə': 2, 'ɚ': 2, 'o': 1, 'i': 3, 'ɐ': 2, 'ɝ': 2 ,'u': 1, 'a': 3 , 'ɛ': 3, 'ô': 1, 'ɔ':1}
 	rank = {'ɪ':2, 'e': 3, 'æ': 6, 'ʌ': 5, 'ʊ': 2, 'ɒ': 7, 'ə': 4, 'ɚ':4, 'o': 3, 'i': 1, 'ɐ': 6.5, 'ɝ': 6, 'u': 1, 'a': 7, 'ɛ': 5, 'ô': 3 , 'ɔ':5}
@@ -153,100 +147,60 @@ def compare(input_IPA, word_diction):
 	for key in word_diction.values():
 		word_vectors = np.zeros((len(key), 3))
 		for letters_index in range(len(key)):
-			if key[letters_index] != '/' and key[letters_index] != "\\":
-				print(key)
-				if key[letters_index] not in IPA_vowels and key[letters_index] not in IPA_symbols:
-					print(key[letters_index])
-					word_vectors[letters_index][0] = articulation[key[letters_index]]
-					word_vectors[letters_index][1] = manor[key[letters_index]]
-					word_vectors[letters_index][2] = occlusion[key[letters_index]]
-				elif key[letters_index] not in IPA_symbols:
-					print(key[letters_index])
-					print(letters_index)
-					word_vectors[letters_index][0] = placement[key[letters_index]]
-					word_vectors[letters_index][1] = rank[key[letters_index]]
-					word_vectors[letters_index][2] = subranks[key[letters_index]]
-				else :
-					print(key[letters_index])
-		diction_vectors[key] = word_vectors
-		print("!")
-		print(word_vectors)
 
-	print(diction_vectors)
-	#Vectorizes inputIPA
-	word_vectors = np.zeros((len(input_IPA), 3))
-	for letters_index in range(len(input_IPA)):
-		if input_IPA[letters_index] != '/' and input_IPA[letters_index] != "\\":
-			print(input_IPA)
-			if input_IPA[letters_index] not in IPA_vowels and input_IPA[letters_index] not in IPA_symbols:
-				print(input_IPA[letters_index])
-				word_vectors[letters_index][0] = articulation[input_IPA[letters_index]]
-				word_vectors[letters_index][1] = manor[input_IPA[letters_index]]
-				word_vectors[letters_index][2] = occlusion[input_IPA[letters_index]]
-			elif input_IPA[letters_index] not in IPA_symbols:
-				print(input_IPA[letters_index])
-				print(letters_index)
-				word_vectors[letters_index][0] = placement[input_IPA[letters_index]]
-				word_vectors[letters_index][1] = rank[input_IPA[letters_index]]
-				word_vectors[letters_index][2] = subranks[input_IPA[letters_index]]
+			if key[letters_index] not in IPA_vowels and key[letters_index] not in IPA_symbols:
+				word_vectors[letters_index][0] = articulation[key[letters_index]]
+				word_vectors[letters_index][1] = manor[key[letters_index]]
+				word_vectors[letters_index][2] = occlusion[key[letters_index]]
+			elif key[letters_index] not in IPA_symbols:
+				word_vectors[letters_index][0] = placement[key[letters_index]]
+				word_vectors[letters_index][1] = rank[key[letters_index]]
+				word_vectors[letters_index][2] = subranks[key[letters_index]]
 			else :
-				print(input_IPA[letters_index])
+				word_vectors[letters_index][0] = -10
+				word_vectors[letters_index][1] = -10
+				word_vectors[letters_index][2] = -10
 
+		diction_vectors[key] = word_vectors
+		# print("!")
+		# print(word_vectors)
+
+
+	#Vectorizes inputIPA
+	word_vectors_input = np.zeros((len(input_IPA), 3))
+	for letters_index in range(len(input_IPA)):
+		if input_IPA[letters_index] not in IPA_vowels and input_IPA[letters_index] not in IPA_symbols:
+			word_vectors_input[letters_index][0] = articulation[input_IPA[letters_index]]
+			word_vectors_input[letters_index][1] = manor[input_IPA[letters_index]]
+			word_vectors_input[letters_index][2] = occlusion[input_IPA[letters_index]]
+		elif input_IPA[letters_index] not in IPA_symbols:
+			word_vectors_input[letters_index][0] = placement[input_IPA[letters_index]]
+			word_vectors_input[letters_index][1] = rank[input_IPA[letters_index]]
+			word_vectors_input[letters_index][2] = subranks[input_IPA[letters_index]]
+		else :
+			word_vectors_input[letters_index][0] = -10
+			word_vectors_input[letters_index][1] = -10
+			word_vectors_input[letters_index][2] = -10
+
+	print("Matrix of the input_IPA is :", word_vectors_input)
 	min_val = 9999
 	min_key = 0
 	for key in diction_vectors.keys():
-		a, b = diction_vectors[key], word_vectors
+		a, b = diction_vectors[key], word_vectors_input
 		sim = np.linalg.norm(a-b)
 		if sim < min_val:
 			min_key = key
 			min_val = sim
 	print(min_key)
-
-	print("!!")
-	a, b = diction_vectors['/siˈætl̩/'], word_vectors
-	sim = np.linalg.norm(a-b)
-	print(sim)
+	#
+	# print("!!")
+	# a, b = diction_vectors['/siˈætl̩/'], word_vectors
+	# sim = np.linalg.norm(a-b)
+	# print(sim)
 
 	# sim_sparse = 1 - sp.distance.cdist(diction_vectors(['/siˈætl̩/']), word_vectors, 'cosine')
 	# print(sim_sparse)
 
-
-	# (len of the word x 3)...have two matrices which will often not be the same shape and you want to compare them...
-	# have to compare each and every value...
-	# loop through each matrix....loop through all the values in the smaller matrix and loop through the same # of values in the big matrix
-	# GOAL: COMPARE INPUT MATRICES AND CHOOSE WHICH ONE IS MOSTLY SIMILAR IN VALUES TO THE INPUT MATRIX.
-	#place of articulation, manner of articulation, occlusion
-	#vectors for each letter....vowel height, vowel frontedness, labialization
-	# best = get_close_matches(input_IPA, word_diction.values())
-	# print(best)
-	# score = 0
-	# best_score = 0
-	# best_one = word_diction['Seattle']
-	# x = 0
-	# for i in word_diction:
-	# 	for j in word_diction[i]:
-	# 		if x > (len(input_IPA) -1):
-	# 			break
-	# 		#if word_diction[i][j] == input_IPA[i]:
-	# 		if j == input_IPA[x]:
-	# 		# if word_diction[i].get(j) == input_IPA[i]:
-	# 			print(best_one)
-	# 			score += 1
-	# 			if score > best_score:
-	# 				best_score = score
-	# 				best_one = word_diction[i]
-	# 		x += 1
-	# 	x = 0
-	# 	score = 0
-
-		# for symbol in word_diction[key]:
-		# 	for j in len(inputIPA):
-		# 	print(symbol)
-		# for letter in i:
-		# 	print (letter)
-		# 
-		# 	if inputIPA[j] == word_dictioncalue
-	# Create for loop to print out all artists' names
 
 #splice("OpenBCI-RAW-2020-11-16_01-42-35.txt")
 
